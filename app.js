@@ -78,10 +78,11 @@ app.post("/add/:id", (req, res) => {
             if (err) console.log(err.message);
             let data = JSON.parse(JSON.stringify(result));
             // console.log(data);
-            res.write("<h1>Data inserted successfully!</h1>");
-            res.write(`<a href="/item/${id}">Go Back</a>`);
-            res.write(`<a href="/myorder/${id}"><button>Show Order Data</button></a>`);
-            res.send();
+            // res.write("<h1>Data inserted successfully!</h1>");
+            // res.write(`<a href="/item/${id}">Go Back</a>`);
+            // res.write(`<a href="/myorder/${id}"><button>Show Order Data</button></a>`);
+            // res.send();
+            res.render("data_added", {id:id})
         }
     );
 });
