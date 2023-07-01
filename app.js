@@ -77,7 +77,7 @@ app.post("/add/:id", (req, res) => {
         (err, result, fields) => {
             if (err) console.log(err.message);
             let data = JSON.parse(JSON.stringify(result));
-            res.render("data_added", {id:id})
+            res.render("data_added", { id: id })
         }
     );
 });
@@ -144,7 +144,7 @@ app.get("/export/:id", (req, res) => {
                 "Content-Disposition",
                 `attachment; filename=orders.xlsx`
             )
-            return wb.xlsx.write(res).then(()=>{
+            return wb.xlsx.write(res).then(() => {
                 res.status(200).send();
             });
         });
@@ -173,12 +173,9 @@ app.post("/updated", (req, res) => {
             console.log(data);
 
             if (data.affectedRows) {
-                // res.write("<h1>Password updated successfully!</h1>");
-                // res.write('<a href="/">Back to Login</a>');
                 res.render("update_pwd");
-            } else {
-                // res.write("<h1>Please enter correct mobile number!</h1>");
-                // res.write('<a href="/">Try Again</a>');
+            } 
+            else {
                 res.render("invalid_input");
             }
         })
