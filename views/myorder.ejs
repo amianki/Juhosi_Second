@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Order Details</h1>
+    <table border="1">
+        <thead>
+            <th>Order Date</th>
+            <th>Company</th>
+            <th>Order Owner</th>
+            <th>Item/Product</th>
+            <th>EA/Count</th>
+            <th>Weight</th>
+            <th>Request for Shipment</th>
+            <th>Field box: Size</th>
+            <th>Office box check</th>
+            <th>Specifications Quantity</th>
+        </thead>
+        <tbody>
+            <% data.forEach((order)=>{ %>
+            <tr>
+                <td><%=order.orderDate%></td>
+                <td><%=order.id%></td>
+                <td><%=username%></td>
+                <td><%=order.package%></td>
+                <td><%=order.count%></td>
+                <td><%=order.request_weight%></td>
+                <td><%=order.requests%></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/export/<%=data[0].id%>">
+        <button>Export to Excel</button>
+    </a>
+    
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/updated" method="post"
+        style="text-align: center; margin-top: 180px; box-sizing: border-box; height: 200px;">
+
+        <label for="mobile_no">Enter Mobile No</label>
+        <input type="text" pattern="[0-9]{10}" style="padding: 5px; margin-right: 12px;" name="mobile_no" required><br>
+
+        <label for="new_password">New Password</label>
+        <input type="password" style="padding: 5px; margin-left: 1px;" name="new_password" required minlength="6"
+            maxlength="16"><br>
+
+        <label for="confirm_password">Confirm New Password</label>
+        <input type="password" style="padding: 5px; margin-right: 58px;" name="confirm_password" required minlength="6"
+            maxlength="16"><br>
+
+        <button type="submit" style="padding: 10px; border-radius: 5px; margin: 30px;">UPDATE</button>
+    </form>
+
+
+</body>
+
+</html>
