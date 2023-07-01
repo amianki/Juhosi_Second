@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql")
 const bodyParser = require("body-parser");
+const Excel = require('exceljs');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -102,9 +103,58 @@ app.get("/myorder/:id", (req, res) => {
 });
 
 // EXPORT TO EXCEL
-app.get("/export/:id", (req, res)=>{
-    let id = req.params.id;
-    res.send("Exported " + id);
+app.get("/export/:id", (req, res) => {
+    const id = req.params.id;
+    const wb = new Excel.Workbook();
+    const ws = wb.addWorksheet('My Sheet');
+
+    const headers = [
+        { header: 'Order Date', key: 'orderDate', width: 30 },
+        { header: 'Company', key: 'id', width: 30 },
+        { header: 'Order Owner', key: 'name', width: 30 },
+        { header: 'Item/Product', key: 'package', width: 30 },
+        { header: 'EA/Count', key: 'count', width: 30 },
+        { header: 'Weight', key: 'request_weight', width: 30 },
+        { header: 'Request for Shipment', key: 'requests', width: 30 },
+        { header: 'Field box: Size', key: '', width: 30 },
+        { header: 'Office box check', key: '', width: 30 },
+        { header: 'Specifications Quantity', key: '', width: 30 },
+    ]
+    connection.query(`SELECT * FROM OrderItem WHERE id = "${id}"`, (err, result, fields) => {
+        if (err) console.error(err.message);
+        let data = JSON.parse(JSON.stringify(result));
+        // console.log(data);
+        connection.query(`SELECT name FROM User WHERE id = "${id}"`, (err, result, fields) => {
+            if (err) console.error(err.message);
+            let username = JSON.parse(JSON.stringify(result));
+            ws.columns = headers;
+            data.forEach(order => {
+                const row = {
+                    orderDate: order.orderDate,
+                    id: order.id,
+                    name: username[0].name,
+                    package: order.package,
+                    count: order.count,
+                    request_weight: order.request_weight,
+                    requests: order.requests
+                }
+                ws.addRow(row);
+            });
+            res.setHeader(
+                "Content-Type",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            );
+            res.setHeader(
+                "Content-Disposition",
+                `attachment; filename=orders.xlsx`
+            )
+            return wb.xlsx.write(res).then(()=>{
+                res.status(200).send();
+            });
+        });
+    });
+
+    // res.send("Exported " + id);
 });
 
 // CHANGE PASSWORD Clicked
