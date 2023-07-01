@@ -77,11 +77,6 @@ app.post("/add/:id", (req, res) => {
         (err, result, fields) => {
             if (err) console.log(err.message);
             let data = JSON.parse(JSON.stringify(result));
-            // console.log(data);
-            // res.write("<h1>Data inserted successfully!</h1>");
-            // res.write(`<a href="/item/${id}">Go Back</a>`);
-            // res.write(`<a href="/myorder/${id}"><button>Show Order Data</button></a>`);
-            // res.send();
             res.render("data_added", {id:id})
         }
     );
@@ -178,13 +173,13 @@ app.post("/updated", (req, res) => {
             console.log(data);
 
             if (data.affectedRows) {
-                res.write("<h1>Password updated successfully!</h1>");
-                res.write('<a href="/">Back to Login</a>');
-                res.send();
+                // res.write("<h1>Password updated successfully!</h1>");
+                // res.write('<a href="/">Back to Login</a>');
+                res.render("update_pwd");
             } else {
-                res.write("<h1>Please enter correct mobile number!</h1>");
-                res.write('<a href="/">Try Again</a>');
-                res.send();
+                // res.write("<h1>Please enter correct mobile number!</h1>");
+                // res.write('<a href="/">Try Again</a>');
+                res.render("invalid_input");
             }
         })
     }
